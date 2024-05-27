@@ -1,5 +1,4 @@
 import React from 'react';
-import { SiRiotgames } from 'react-icons/si';
 // import { IoPerson } from 'react-icons/io5';
 // import { FaStar } from 'react-icons/fa';
 import { useNavigate } from 'react-router-dom';
@@ -13,30 +12,21 @@ export default function Navbar() {
   const navigate = useNavigate();
   // const isLoggedIn = !!token
   return (
-    <header className='w-full p-2 flex justify-between items-center'>
-      <section
-        className='pt-2 flex gap-1 items-center cursor-pointer'
-        onClick={() => navigate('/')}
+    <nav className='flex gap-5 font-medium'>
+      <button
+        className='flex gap-1 items-center'
+        onClick={() => navigate('/players')}
       >
-        <SiRiotgames className='text-2xl text-white' />
-        <p className='text-2xl font-bold'>Riot Games</p>
-      </section>
-      <section className='flex gap-5 font-medium'>
-        <button
-          className='flex gap-1 items-center'
-          onClick={() => navigate('/players')}
-        >
-          <p>Players</p>
-        </button>
-        {/* token? navigate('/roster') : login */}
-        <button
-          className='flex gap-1 items-center'
-          onClick={() => navigate('/roster')}
-        >
-          <p>Roster</p>
-        </button>
-        <button>Login</button>
-      </section>
-    </header>
+        <p>Players</p>
+      </button>
+      {/* token? navigate('/roster') : login */}
+      <button
+        className='flex gap-1 items-center'
+        onClick={() => navigate('/roster')}
+      >
+        <p>Roster</p>
+      </button>
+      <button>Login</button>
+    </nav>
   );
 }
