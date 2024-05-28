@@ -20,7 +20,6 @@ const mockPlayers = [
     role: 'Top',
     marketValue: '$1,000,000',
     profileUrl: '/images/players/DK_Kingen_2024_Split_1.webp',
-    teamLogoUrl: '/images/team/Dplus_KIAlogo_profile.webp',
   },
   {
     id: uuidv4(),
@@ -29,7 +28,6 @@ const mockPlayers = [
     role: 'Jungle',
     marketValue: '$100,000',
     profileUrl: '/images/players/DK_Lucid_2024_Split_1.webp',
-    teamLogoUrl: '/images/team/Dplus_KIAlogo_profile.webp',
   },
   {
     id: uuidv4(),
@@ -38,7 +36,6 @@ const mockPlayers = [
     role: 'Mid',
     marketValue: '$2,000,000',
     profileUrl: '/images/players/DK_ShowMaker_2024_Split_1.webp',
-    teamLogoUrl: '/images/team/Dplus_KIAlogo_profile.webp',
   },
   {
     id: uuidv4(),
@@ -47,7 +44,6 @@ const mockPlayers = [
     role: 'Bot',
     marketValue: '$1,200,000',
     profileUrl: '/images/players/DK_Aiming_2024_Split_1.webp',
-    teamLogoUrl: '/images/team/Dplus_KIAlogo_profile.webp',
   },
   {
     id: uuidv4(),
@@ -56,7 +52,6 @@ const mockPlayers = [
     role: 'Support',
     marketValue: '$300,000',
     profileUrl: '/images/players/DK_Kellin_2024_Split_1.webp',
-    teamLogoUrl: '/images/team/Dplus_KIAlogo_profile.webp',
   },
   {
     id: uuidv4(),
@@ -65,7 +60,6 @@ const mockPlayers = [
     role: 'Top',
     marketValue: '$1,500,000',
     profileUrl: '/images/players/GEN_Kiin_2024_Split_1.webp',
-    teamLogoUrl: '/images/team/Gen.Glogo_profile.webp',
   },
   {
     id: uuidv4(),
@@ -74,7 +68,6 @@ const mockPlayers = [
     role: 'Jungle',
     marketValue: '$1,800,000',
     profileUrl: '/images/players/GEN_Canyon_2024_Split_1.webp',
-    teamLogoUrl: '/images/team/Gen.Glogo_profile.webp',
   },
   {
     id: uuidv4(),
@@ -83,16 +76,14 @@ const mockPlayers = [
     role: 'Mid',
     marketValue: '$2,500,000',
     profileUrl: '/images/players/GEN_Chovy_2024_Split_1.webp',
-    teamLogoUrl: '/images/team/Gen.Glogo_profile.webp',
   },
   {
     id: uuidv4(),
     name: 'Viper',
-    team: 'Hanwha Life',
+    team: 'Hanwha Life Esports',
     role: 'Bot',
     marketValue: '$3,000,000',
     profileUrl: '/images/players/HLE_Viper_2024_Split_1.webp',
-    teamLogoUrl: '/images/team/Hanwha_Life_Esportslogo_profile.webp',
   },
   {
     id: uuidv4(),
@@ -101,6 +92,5 @@ const mockPlayers = [
     role: 'Mid',
     marketValue: '$10,000,000',
     profileUrl: '/images/players/T1_Faker_2024_Split_1.webp',
-    teamLogoUrl: '/images/team/T1logo_profile.webp',
   },
 ];
