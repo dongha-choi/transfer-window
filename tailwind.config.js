@@ -15,6 +15,7 @@ module.exports = {
         darkGold: '#b48811',
       },
       width: {
+        96: '24rem',
         128: '32rem',
         160: '40rem',
       },
