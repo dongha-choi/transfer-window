@@ -2,32 +2,22 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
 import reportWebVitals from './reportWebVitals';
-import { RouterProvider, createBrowserRouter } from 'react-router-dom';
-import App from './App';
-import NotFound from './pages/NotFound';
-import Players from './pages/Players';
-import Home from './pages/Home';
-import Roster from './pages/Roster';
-import PlayerInfo from './components/PlayerInfo';
+import { RouterProvider } from 'react-router-dom';
+import router from './config/router';
+import { QueryClient } from '@tanstack/react-query';
+import { QueryClientProvider } from '@tanstack/react-query';
+import { AuthProvider } from './context/AuthContext';
 
-const router = createBrowserRouter([
-  {
-    path: '/',
-    element: <App />,
-    errorElement: <NotFound />,
-    children: [
-      { index: true, element: <Home /> },
-      { path: 'players', element: <Players /> },
-      { path: 'roster', element: <Roster /> },
-      { path: 'players/:playerId', element: <PlayerInfo /> },
-    ],
-  },
-]);
+const queryClient = new QueryClient();
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <RouterProvider router={router} />
+    <QueryClientProvider client={queryClient}>
+      <AuthProvider>
+        <RouterProvider router={router} />
+      </AuthProvider>
+    </QueryClientProvider>
   </React.StrictMode>
 );
 
