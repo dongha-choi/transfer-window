@@ -4,7 +4,7 @@ import { v4 as uuidv4 } from 'uuid';
 
 export default function Players() {
   return (
-    <ul className='my-4 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4 gap-y-4'>
+    <ul className='mt-12 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4 gap-y-4'>
       {mockPlayers.map((player) => (
         <Player player={player} id={player.id} />
       ))}

@@ -8,6 +8,7 @@ import NotFound from './pages/NotFound';
 import Players from './pages/Players';
 import Home from './pages/Home';
 import Roster from './pages/Roster';
+import PlayerInfo from './components/PlayerInfo';
 
 const router = createBrowserRouter([
   {
@@ -18,6 +19,7 @@ const router = createBrowserRouter([
       { index: true, element: <Home /> },
       { path: 'players', element: <Players /> },
       { path: 'roster', element: <Roster /> },
+      { path: 'players/:playerId', element: <PlayerInfo /> },
     ],
   },
 ]);

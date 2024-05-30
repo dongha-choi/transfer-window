@@ -1,6 +1,23 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer utilities {
+  .border-gold-transition {
+    @apply transition duration-300 ease-out border-transparent hover:border-lightGold;
+  }
+  .gradient-gold {
+    @apply text-transparent bg-clip-text bg-gradient-to-r from-lightGold to-darkGold;
+  }
+  .gradient-blue {
+    @apply text-transparent bg-clip-text bg-gradient-to-r from-lightBlue to-skyBlue;
+    /* @apply text-transparent bg-clip-text bg-gradient-to-r from-[#6cc9f5] to-[#639ef7]; */
+  }
+  .gradient-dark-blue {
+    @apply bg-gradient-to-br from-[#091428] via-[#003551] to-[#091428];
+  }
+}
+
 @font-face {
   font-family: 'BeaufortforLOL';
   src: url('./assets/fonts/BeaufortforLOL-Regular.otf') format('opentype');
@@ -39,4 +56,18 @@ body {
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
+}
+
+button {
+  cursor: pointer;
+}
+
+textarea {
+  padding: 10px;
+  font-weight: normal;
+  font-size: 18px;
+}
+textarea:focus {
+  outline: none;
+  border: none;
 }

@@ -1,13 +1,15 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 
 export default function Player({ player }) {
   const { name, team, marketValue, role, profileUrl } = player;
-
+  const navigate = useNavigate();
   return (
     <li
       className={
-        'w-full max-w-64 rounded-3xl pb-5 bg-blue cursor-pointer transition duration-300 ease border-2 border-transparent hover:border-lightGold'
+        'w-full max-w-64 rounded-3xl pb-5 gradient-dark-blue cursor-pointer border-2 border-gold-transition'
       }
+      onClick={() => navigate('/players/:playerId', { state: { player } })}
     >
       <div className='flex justify-end h-56 p-2 mb-1'>
         <img
@@ -17,9 +19,7 @@ export default function Player({ player }) {
         />
       </div>
       <div className='flex flex-col items-center font-bold'>
-        <p className='text-2xl text-transparent bg-clip-text bg-gradient-to-r from-lightGold to-darkGold'>
-          {name}
-        </p>
+        <p className='text-2xl gradient-gold'>{name}</p>
         <div className='flex items-center gap-1'>
           <img
             className='w-4 h-auto'
@@ -38,7 +38,9 @@ export default function Player({ player }) {
           />
           <p>{team}</p>
         </div>
-        <p className='text-lg'>{marketValue}</p>
+        <p className='text-lg gradient-blue w-auto inline-block'>
+          {marketValue}
+        </p>
       </div>
     </li>
   );
