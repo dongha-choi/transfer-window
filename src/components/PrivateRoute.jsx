@@ -4,15 +4,15 @@ import { useNavigate } from 'react-router-dom';
 
 export default function PrivateRoute({ children }) {
   const navigate = useNavigate();
-  const { isAuthenticated } = useAuth();
+  const { isSignedIn } = useAuth();
 
   useEffect(() => {
-    if (!isAuthenticated) {
+    if (!isSignedIn) {
       navigate('/signin');
     }
-  }, [isAuthenticated, navigate]);
+  }, [isSignedIn, navigate]);
 
-  if (!isAuthenticated) {
+  if (!isSignedIn) {
     return null;
   }
 

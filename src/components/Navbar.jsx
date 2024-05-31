@@ -11,7 +11,7 @@ import { Link } from 'react-router-dom';
 // 3. admin 계정의 경우, 선수 등록 가능
 export default function Navbar() {
   //isAdmin
-  const { isSignedIn } = useAuth();
+  const { isSignedIn, exit } = useAuth();
   console.log(isSignedIn);
   return (
     <nav className='flex gap-2 font-medium'>
@@ -21,18 +21,22 @@ export default function Navbar() {
       <Link to='/roster' className='px-2 py-1 flex items-center'>
         Roster
       </Link>
-      {isSignedIn || (
-        <Link to='/signin' className='px-2 py-1 flex items-center'>
-          Sign In
+      {isSignedIn ? (
+        <Link to='/' className='px-2 py-1 flex items-center' onClick={exit}>
+          Sign Out
         </Link>
-      )}
-      {isSignedIn || (
-        <Link
-          to='/signup'
-          className='px-2 py-1 border rounded-md border-lightGold flex items-center'
-        >
-          Sign Up
-        </Link>
+      ) : (
+        <>
+          <Link to='/signin' className='px-2 py-1 flex items-center'>
+            Sign In
+          </Link>
+          <Link
+            to='/signup'
+            className='px-2 py-1 border rounded-md border-lightGold flex items-center'
+          >
+            Sign Up
+          </Link>
+        </>
       )}
     </nav>
   );
