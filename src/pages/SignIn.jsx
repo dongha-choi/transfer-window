@@ -1,22 +1,25 @@
-import React, { useRef, useState } from 'react';
+import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 
 export default function SignIn() {
-  const emailRef = useRef();
-  const passwordRef = useRef();
-  const { login } = useAuth();
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const { signIn } = useAuth();
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    if (!email.trim() || !password.trim()) {
+      return;
+    }
     try {
       setError('');
       setLoading(true);
-      await login(emailRef.current.value, passwordRef.current.value);
-      navigate('/');
+      await signIn(email, password);
+      // navigate('/');
     } catch {
       setError('Failed to log in');
     }
@@ -24,18 +27,28 @@ export default function SignIn() {
   };
   return (
     <div>
-      <h2>Login</h2>
+      <p>Join us and make your own roster!</p>
       <form onSubmit={handleSubmit}>
         <label>
           Email:
-          <input type='email' ref={emailRef} required />
+          <input
+            type='email'
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            required
+          />
         </label>
         <label>
           Password:
-          <input type='password' ref={passwordRef} required />
+          <input
+            type='password'
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            required
+          />
         </label>
         <button disabled={loading} type='submit'>
-          Log In
+          Join
         </button>
       </form>
       {error && <p>{error}</p>}

@@ -13,6 +13,7 @@ module.exports = {
         gold: '#C89B3C',
         lightGold: '#FFC94A',
         darkGold: '#b48811',
+        red: '#E25E3E',
       },
       width: {
         96: '24rem',

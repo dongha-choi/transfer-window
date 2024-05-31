@@ -1,8 +1,8 @@
 import React from 'react';
 // import { IoPerson } from 'react-icons/io5';
 // import { FaStar } from 'react-icons/fa';
-import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
+import { Link } from 'react-router-dom';
 
 // todo:
 // 로그인 기능 구현 후 로직 생성 및 수정 필요
@@ -10,26 +10,30 @@ import { useAuth } from '../context/AuthContext';
 // 2. '/roaster'에 접근 허용
 // 3. admin 계정의 경우, 선수 등록 가능
 export default function Navbar() {
-  const navigate = useNavigate();
+  //isAdmin
   const { isSignedIn } = useAuth();
-  // const isLoggedIn = !!token
+  console.log(isSignedIn);
   return (
-    <nav className='flex gap-5 font-medium'>
-      <button
-        className='flex gap-1 items-center'
-        onClick={() => navigate('/players')}
-      >
-        <p>Players</p>
-      </button>
-      {/* token? navigate('/roster') : login */}
-      <button
-        className='flex gap-1 items-center'
-        onClick={() => navigate('/roster')}
-      >
-        <p>Roster</p>
-      </button>
-
-      {isSignedIn || <Link to='/signin'>Sign In</Link>}
+    <nav className='flex gap-2 font-medium'>
+      <Link to='/players' className='px-2 py-1 flex items-center'>
+        Players
+      </Link>
+      <Link to='/roster' className='px-2 py-1 flex items-center'>
+        Roster
+      </Link>
+      {isSignedIn || (
+        <Link to='/signin' className='px-2 py-1 flex items-center'>
+          Sign In
+        </Link>
+      )}
+      {isSignedIn || (
+        <Link
+          to='/signup'
+          className='px-2 py-1 border rounded-md border-lightGold flex items-center'
+        >
+          Sign Up
+        </Link>
+      )}
     </nav>
   );
 }

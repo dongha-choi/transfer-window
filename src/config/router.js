@@ -7,6 +7,7 @@ import Roster from '../pages/Roster';
 import PlayerInfo from '../components/PlayerInfo';
 import PrivateRoute from '../components/PrivateRoute';
 import SignIn from '../pages/SignIn';
+import SignUp from '../pages/SignUp';
 
 const router = createBrowserRouter([
   {
@@ -26,6 +27,7 @@ const router = createBrowserRouter([
       },
       { path: 'players/:playerId', element: <PlayerInfo /> },
       { path: 'signin', element: <SignIn /> },
+      { path: 'signup', element: <SignUp /> },
     ],
   },
 ]);

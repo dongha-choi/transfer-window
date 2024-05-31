@@ -62,6 +62,21 @@ button {
   cursor: pointer;
 }
 
+input {
+  padding: 6px;
+  border: none;
+  border-radius: 4px;
+  outline: 2px solid transparent;
+  font-size: 1rem;
+  line-height: 1.5rem;
+  font-weight: 500;
+  @apply bg-black;
+}
+input:focus {
+  font-weight: 400;
+  outline: 1px solid gold;
+}
+
 textarea {
   padding: 10px;
   font-weight: normal;
