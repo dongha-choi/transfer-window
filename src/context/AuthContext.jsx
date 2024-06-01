@@ -18,14 +18,19 @@ export function AuthProvider({ children }) {
     return localStorage.getItem('isSignedIn');
   });
 
+  const [uid, setUid] = useState('');
+
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
       const signedIn = !!user;
       setIsSignedIn(signedIn);
-      setIsLoading(false);
       localStorage.setItem('isSignedIn', signedIn);
+      if (signedIn) {
+        setUid(user.uid);
+      }
+      setIsLoading(false);
     });
 
     return unsubscribe;
@@ -64,6 +69,7 @@ export function AuthProvider({ children }) {
 
   const value = {
     isSignedIn,
+    uid,
     signUp,
     signIn,
     exit,

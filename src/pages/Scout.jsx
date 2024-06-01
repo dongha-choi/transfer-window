@@ -9,7 +9,7 @@ export default function Scout() {
   return (
     <div className='w-96 sm:w-128 mt-4 m-auto font-bold'>
       <PlayerInfo player={player} />
-      <Proposal name={player.name} />
+      <Proposal player={player} />
     </div>
   );
 }
