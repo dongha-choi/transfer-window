@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-export default function Scout({ name }) {
+export default function Proposal({ name }) {
   const [text, setText] = useState('');
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -19,7 +19,7 @@ export default function Scout({ name }) {
         className='w-full flex flex-col items-start gap-2'
         onSubmit={handleSubmit}
       >
-        <label htmlFor='proposal'>Write a proposal to scout the player:</label>
+        <label htmlFor='proposal'>Write a proposal to scout {name}:</label>
         <textarea
           name='proposal'
           value={text}
@@ -27,7 +27,7 @@ export default function Scout({ name }) {
           onKeyDown={handleKeyDown}
           placeholder='Your proposal here...'
           className='w-full min-h-12 appearance-none text-white bg-gray rounded-xl'
-          rows='5' // Add this attribute to specify the number of rows
+          rows='5'
         />
         <div className='w-full mt-1 flex gap-2'>
           <button className='flex-1 rounded-xl pt-2 pb-3 bg-blue border border-gold-transition'>
