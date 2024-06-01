@@ -1,8 +1,9 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 
-export default function Player({ player }) {
+export default function Player({ player, type }) {
   const { id, name, team, marketValue, role, profileUrl } = player;
+  const isList = type === 'list';
   const navigate = useNavigate();
   return (
     <li

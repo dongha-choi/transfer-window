@@ -10,18 +10,34 @@ export const useDatabase = () => useContext(DatabaseContext);
 export function DatabaseProvider({ children }) {
   const { uid } = useAuth();
   // const userRef = db.ref(`users/${uid}`);
+  let db;
+  try {
+    db = getDatabase();
+  } catch (error) {
+    throw error;
+  }
+  const getRosterData = async (path) => {
+    try {
+      const snapshot = await get(ref(db, `users/${uid}/roster`));
+      return snapshot.val();
+    } catch (error) {
+      throw error;
+    }
+  };
+  const getScoutData = async (path) => {
+    try {
+      const snapshot = await get(ref(db, `users/${uid}/scout`));
+      return snapshot.val();
+    } catch (error) {
+      throw error;
+    }
+  };
   const addToRoster = async (key, data) => {
     try {
-      const db = getDatabase();
-
-      const rosterRef = ref(db, `users/${uid}/roster`);
-      const snapshot = await get(rosterRef);
-      if (snapshot.exists()) {
-        const rosterData = snapshot.val();
-        for (const existingKey in rosterData) {
-          if (existingKey === key) {
-            throw new Error(`${data.player.name} is already in your roster!`);
-          }
+      const rosterData = await getRosterData();
+      for (const existingKey in rosterData) {
+        if (existingKey === key) {
+          throw new Error(`${data.player.name} is already in your roster!`);
         }
       }
 
@@ -33,18 +49,12 @@ export function DatabaseProvider({ children }) {
   };
   const addToScout = async (key, data) => {
     try {
-      const db = getDatabase();
-
-      const scoutRef = ref(db, `users/${uid}/scout`);
-      const snapshot = await get(scoutRef);
-      if (snapshot.exists()) {
-        const scoutData = snapshot.val();
-        for (const existingKey in scoutData) {
-          if (existingKey === key) {
-            throw new Error(
-              `You've already sent a scout offer to ${data.player.name}!`
-            );
-          }
+      const scoutData = await getScoutData();
+      for (const existingKey in scoutData) {
+        if (existingKey === key) {
+          throw new Error(
+            `You've already sent a scout offer to ${data.player.name}!`
+          );
         }
       }
 
@@ -55,6 +65,8 @@ export function DatabaseProvider({ children }) {
     }
   };
   const value = {
+    getRosterData,
+    getScoutData,
     addToRoster,
     addToScout,
   };

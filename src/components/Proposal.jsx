@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import { useDatabase } from '../context/DatabaseContext';
-import { useAuth } from '../context/AuthContext';
 import { useNavigate } from 'react-router-dom';
+import { useAuth } from '../context/AuthContext';
+import { useDatabase } from '../context/DatabaseContext';
 
 export default function Proposal({ player }) {
   const { isSignedIn } = useAuth();
