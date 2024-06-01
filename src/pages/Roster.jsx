@@ -30,10 +30,26 @@ export default function Roster() {
 
   return (
     <div className='w-11/12 mt-4 m-auto text-xl font-normal'>
-      <span className='text-3xl font-bold gradient-blue'>My Roster</span>
-      {rosterData ? mapJson(rosterData) : <p>Add players to your roster!</p>}
-      <span className='text-2xl font-bold gradient-blue'>Scout Offer</span>
-      {scoutData ? mapJson(scoutData) : <p>Offer scout to players!</p>}
+      <div className='w-full'>
+        <span className='text-3xl font-bold gradient-blue'>My Roster</span>
+        {rosterData ? (
+          <ul className='w-full mt-2 mb-4 grid place-items-center grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-x-8 gap-y-4'>
+            {mapJson(rosterData)}
+          </ul>
+        ) : (
+          <p>Add players to your roster!</p>
+        )}
+      </div>
+      <div className='w-full'>
+        <span className='text-3xl font-bold gradient-blue'>Scout Offer</span>
+        {scoutData ? (
+          <ul className='w-full mt-2 grid place-items-center grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-x-8 gap-y-4'>
+            {mapJson(scoutData)}
+          </ul>
+        ) : (
+          <p>Offer scout to players!</p>
+        )}
+      </div>
       {error && <p>{error}</p>}
     </div>
   );

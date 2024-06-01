@@ -1,18 +1,26 @@
 import React from 'react';
 
-export default function PlayerInfo({ player }) {
+export default function PlayerInfo({ player, type }) {
   const { name, team, marketValue, role, profileUrl } = player;
+  const isList = type === 'list';
   return (
-    <div className='w-full pt-4 pb-8 flex flex-col sm:flex-row justify-center items-center rounded-3xl gradient-dark-blue'>
-      <div className='w-3/5 ml-4 mb-4 flex flex-col items-center'>
+    <div
+      className={
+        'w-full flex justify-center items-center gap-4 gradient-dark-blue' +
+        (isList
+          ? ' py-8 flex-row rounded-t-3xl'
+          : ' pt-4 pb-4 flex-col sm:flex-row rounded-3xl')
+      }
+    >
+      <div className='w-56 mb-4 flex flex-col items-center'>
         <img
-          className='w-64 h-full mb-4 object-contain'
+          className='w-56 h-full mb-4 object-contain'
           src={profileUrl}
           alt='profile'
         />
         <p className='text-4xl gradient-gold'>{name}</p>
       </div>
-      <ul className='w-2/5 mt-1 flex flex-col gap-8 font-bold text-xl'>
+      <ul className='w-40 sm:w-40 flex flex-col gap-4 sm:gap-8 font-bold text-xl'>
         <li>
           <p>⋆ Role </p>
           <div className='mt-2 flex items-center gap-2 '>

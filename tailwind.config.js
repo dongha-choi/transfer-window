@@ -7,6 +7,8 @@ module.exports = {
         brand: '#E2EE83',
         black: '#010A13',
         gray: '#3C3C41',
+        darkGray: '#222831',
+        navy: '#070F2B',
         lightBlue: '#6cc9f5',
         skyBlue: '#639ef7',
         blue: '#112D4E',
@@ -17,6 +19,8 @@ module.exports = {
       },
       width: {
         96: '24rem',
+        100: '26rem',
+        108: '28rem',
         128: '32rem',
         160: '40rem',
       },

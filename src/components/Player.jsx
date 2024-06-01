@@ -1,15 +1,12 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 
-export default function Player({ player, type }) {
+export default function Player({ player }) {
   const { id, name, team, marketValue, role, profileUrl } = player;
-  const isList = type === 'list';
   const navigate = useNavigate();
   return (
     <li
-      className={
-        'w-full max-w-64 rounded-3xl pb-5 gradient-dark-blue cursor-pointer border-2 border-gold-transition'
-      }
+      className='w-full max-w-64 rounded-3xl pb-5 gradient-dark-blue cursor-pointer border-2 border-gold-transition'
       onClick={() => navigate(`/players/${id}`, { state: { player } })}
     >
       <div className='flex justify-end h-56 p-2 mb-1'>
