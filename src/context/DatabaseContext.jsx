@@ -16,7 +16,17 @@ export function DatabaseProvider({ children }) {
   } catch (error) {
     throw error;
   }
-  const getRosterData = async (path) => {
+
+  const addUser = async (user) => {
+    try {
+      const userInfoRef = ref(db, `users/${uid}/userInfo`);
+      await set(userInfoRef, user);
+    } catch (error) {
+      throw error;
+    }
+  };
+
+  const getRosterData = async () => {
     try {
       const snapshot = await get(ref(db, `users/${uid}/roster`));
       return snapshot.val();
@@ -24,7 +34,7 @@ export function DatabaseProvider({ children }) {
       throw error;
     }
   };
-  const getScoutData = async (path) => {
+  const getScoutData = async () => {
     try {
       const snapshot = await get(ref(db, `users/${uid}/scout`));
       return snapshot.val();
@@ -74,6 +84,7 @@ export function DatabaseProvider({ children }) {
     }
   };
   const value = {
+    addUser,
     getRosterData,
     getScoutData,
     addToRoster,

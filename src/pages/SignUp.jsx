@@ -2,12 +2,14 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import { useImmer } from 'use-immer';
+import { useDatabase } from '../context/DatabaseContext';
 
 export default function SignUp() {
   const [user, updateUser] = useImmer({
     email: '',
     password: '',
-    // name: '', // can't send name.
+    name: '', // can't send name.
+    position: 'contractor',
   });
   const [confirmationPassword, setConfirmationPassword] = useState('');
   const confirm = (a, b) => {
@@ -16,14 +18,24 @@ export default function SignUp() {
     }
     return false;
   };
+
   const { signUp } = useAuth();
+  const { addUser } = useDatabase();
+
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
+  const changePosition = (position) => {
+    updateUser((draft) => {
+      draft.position = position;
+    });
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     for (const key in user) {
+      console.log(user[key]);
       if (!user[key].trim()) {
         console.log(`${key} is empty!`);
         return;
@@ -33,7 +45,10 @@ export default function SignUp() {
     try {
       setError('');
       setLoading(true);
+
       await signUp(user.email, user.password);
+      await addUser(user);
+
       navigate('/');
     } catch (error) {
       console.log(error);
@@ -104,7 +119,7 @@ export default function SignUp() {
               </p>
             )}
           </div>
-          {/* <div className='w-full'>
+          <div className='w-full'>
             <p>&nbsp;⋆&nbsp;&nbsp;Create your roster name</p>
             <div className='flex items-center'>
               <span className='text-sm mr-1 pt-1'>→</span>
@@ -120,7 +135,37 @@ export default function SignUp() {
                 required
               />
             </div>
-          </div> */}
+          </div>
+          <div className='w-full'>
+            <p>&nbsp;⋆&nbsp;&nbsp;Select your position!</p>
+            <p className='ml-4 text-sm font-normal text-lightBlue'>
+              You can enroll FA players if you are an agent.
+            </p>
+            <div className='mt-2 ml-4 flex justify-start gap-2'>
+              <div
+                className={
+                  'w-5/12 border p-2 cursor-pointer text-center' +
+                  (user.position === 'agent'
+                    ? ''
+                    : ' border-gold gradient-gold')
+                }
+                onClick={() => changePosition('contractor')}
+              >
+                Contractor
+              </div>
+              <div
+                className={
+                  'w-5/12 border p-2 cursor-pointer text-center' +
+                  (user.position === 'agent'
+                    ? ' border-gold gradient-gold'
+                    : '')
+                }
+                onClick={() => changePosition('agent')}
+              >
+                Agent
+              </div>
+            </div>
+          </div>
           <button
             disabled={loading}
             className='w-11/12 mt-2 py-2 border border-skyBlue rounded-md text-xl text-center'
