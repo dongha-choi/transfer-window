@@ -8,7 +8,7 @@ export default function Scout() {
   const player = state.player;
   return (
     <div className='w-96 sm:w-128 mt-4 m-auto font-bold'>
-      <PlayerInfo player={player} />
+      <PlayerInfo player={player} isMyPlayer={false} />
       <Proposal player={player} />
     </div>
   );

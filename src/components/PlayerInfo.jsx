@@ -1,17 +1,31 @@
 import React from 'react';
+import { useDatabase } from '../context/DatabaseContext';
 
-export default function PlayerInfo({ player, type }) {
-  const { name, team, marketValue, role, profileUrl } = player;
-  const isList = type === 'list';
+export default function PlayerInfo({ player, isMyPlayer, type }) {
+  const { id, name, team, marketValue, role, profileUrl } = player;
+  const { deletePlayer } = useDatabase();
+  const onDelete = () => {
+    if (window.confirm(`Are you sure you want to release ${name}?`)) {
+      deletePlayer(id, type);
+    }
+  };
   return (
     <div
       className={
-        'w-full flex justify-center items-center gap-4 gradient-dark-blue' +
-        (isList
+        'relative w-full flex justify-center items-center gap-4 gradient-dark-blue' +
+        (isMyPlayer
           ? ' py-8 flex-row rounded-t-3xl'
           : ' pt-4 pb-4 flex-col sm:flex-row rounded-3xl')
       }
     >
+      {isMyPlayer && (
+        <button
+          className='absolute top-2 right-2 p-2 w-6 h-6 leading-6 flex justify-center items-center gradient-gold font-normal'
+          onClick={onDelete}
+        >
+          ✖
+        </button>
+      )}
       <div className='w-56 mb-4 flex flex-col items-center'>
         <img
           className='w-56 h-full mb-4 object-contain'

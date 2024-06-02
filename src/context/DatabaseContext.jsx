@@ -1,6 +1,6 @@
 import React, { createContext, useContext } from 'react';
 // import { db } from '../config/firebase';
-import { getDatabase, ref, set, get } from 'firebase/database';
+import { getDatabase, ref, set, get, remove } from 'firebase/database';
 import { useAuth } from './AuthContext';
 
 const DatabaseContext = createContext();
@@ -64,11 +64,21 @@ export function DatabaseProvider({ children }) {
       throw error;
     }
   };
+  // type = roster | scout
+  const deletePlayer = async (key, type) => {
+    try {
+      const userRosterRef = ref(db, `users/${uid}/${type}/${key}`);
+      await remove(userRosterRef);
+    } catch (error) {
+      throw error;
+    }
+  };
   const value = {
     getRosterData,
     getScoutData,
     addToRoster,
     addToScout,
+    deletePlayer,
   };
   return (
     <DatabaseContext.Provider value={value}>
