@@ -11,11 +11,8 @@ const AuthContext = React.createContext();
 export const useAuth = () => useContext(AuthContext);
 
 export function AuthProvider({ children }) {
-  // const [user, setUser] = useState(() => {
-  //   return JSON.parse(localStorage.getItem('user')) || false;
-  // });
   const [isSignedIn, setIsSignedIn] = useState(() => {
-    return localStorage.getItem('isSignedIn');
+    return localStorage.getItem('isSignedIn') || false;
   });
 
   const [uid, setUid] = useState('');
@@ -32,13 +29,27 @@ export function AuthProvider({ children }) {
       }
       setIsLoading(false);
     });
-
     return unsubscribe;
   }, []);
 
+  // const getUid = async () => {
+  //   console.log('getUid is executed');
+  //   return Promise.resolve(uid);
+  // };
+  // const getUid = () => {
+  //   console.log('getUid is executed');
+  //   return uid;
+  // };
+
   const signUp = async (email, password) => {
     try {
-      await createUserWithEmailAndPassword(auth, email, password);
+      const userCredential = await createUserWithEmailAndPassword(
+        auth,
+        email,
+        password
+      );
+      localStorage.setItem('isSignedIn', true);
+      return userCredential.user.uid;
     } catch (error) {
       throw error;
     }
@@ -47,6 +58,7 @@ export function AuthProvider({ children }) {
   const signIn = async (email, password) => {
     try {
       await signInWithEmailAndPassword(auth, email, password);
+      localStorage.setItem('isSignedIn', true);
     } catch (error) {
       throw error;
     }

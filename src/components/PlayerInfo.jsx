@@ -12,10 +12,10 @@ export default function PlayerInfo({ player, isMyPlayer, type }) {
   return (
     <div
       className={
-        'relative w-full flex justify-center items-center gap-4 gradient-dark-blue' +
+        'relative w-full h-96 flex justify-center items-center gradient-dark-blue' +
         (isMyPlayer
-          ? ' py-8 flex-row rounded-t-3xl'
-          : ' pt-4 pb-4 flex-col sm:flex-row rounded-3xl')
+          ? ' py-4 gap-2 flex-row rounded-t-3xl'
+          : ' pt-4 pb-4 gap-4 flex-col sm:flex-row rounded-3xl')
       }
     >
       {isMyPlayer && (

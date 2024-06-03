@@ -1,38 +1,49 @@
-import React from 'react';
-// import { IoPerson } from 'react-icons/io5';
-// import { FaStar } from 'react-icons/fa';
+import React, { useEffect, useState } from 'react';
 import { useAuth } from '../context/AuthContext';
 import { Link } from 'react-router-dom';
+import { useDatabase } from '../context/DatabaseContext';
 
-// todo:
-// 로그인 기능 구현 후 로직 생성 및 수정 필요
-// 1. 로그인 계정 표시
-// 2. '/roaster'에 접근 허용
-// 3. admin 계정의 경우, 선수 등록 가능
 export default function Navbar() {
-  //isAdmin
   const { isSignedIn, exit } = useAuth();
-  console.log(isSignedIn);
+  const { getUserInfo } = useDatabase();
+  const [userInfo, setUserInfo] = useState({});
+  useEffect(() => {
+    if (isSignedIn) {
+      const fetchData = async () => {
+        try {
+          const userInfo = await getUserInfo();
+          setUserInfo(userInfo);
+          console.log('fetched user Info: ', userInfo);
+        } catch (error) {
+          console.log(error.message);
+        }
+      };
+      fetchData();
+    }
+  }, [isSignedIn, getUserInfo]);
   return (
-    <nav className='flex gap-2 font-medium'>
-      <Link to='/players' className='px-2 py-1 flex items-center'>
+    <nav className='flex items-center gap-2 font-medium'>
+      <Link to='/players' className='px-2 py-1'>
         Players
       </Link>
-      <Link to='/roster' className='px-2 py-1 flex items-center'>
+      <Link to='/roster' className='px-2 py-1'>
         Roster
       </Link>
       {isSignedIn ? (
-        <Link to='/' className='px-2 py-1 flex items-center' onClick={exit}>
-          Sign Out
-        </Link>
+        <>
+          <span className='px-2 py-1 font-bold text-gold'>{userInfo.name}</span>
+          <Link to='/' className='px-2 py-1' onClick={exit}>
+            Sign Out
+          </Link>
+        </>
       ) : (
         <>
-          <Link to='/signin' className='px-2 py-1 flex items-center'>
+          <Link to='/signin' className='px-2 py-1'>
             Sign In
           </Link>
           <Link
             to='/signup'
-            className='px-2 py-1 border rounded-md border-lightGold flex items-center'
+            className='px-2 py-1 border rounded-md border-lightGold'
           >
             Sign Up
           </Link>

@@ -34,7 +34,7 @@ export default function Roster() {
   }, [getRosterData, getScoutData]);
 
   return (
-    <div className='w-full mt-4 m-auto text-xl font-normal'>
+    <div className='w-full px-4 mt-4 m-auto text-xl font-normal'>
       <div className='w-full'>
         <span className='text-3xl font-bold gradient-blue'>⋆ My Roster</span>
         {rosterData ? (

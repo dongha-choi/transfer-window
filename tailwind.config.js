@@ -18,6 +18,15 @@ module.exports = {
         red: '#E25E3E',
       },
       width: {
+        88: '20rem',
+        92: '22rem',
+        96: '24rem',
+        100: '26rem',
+        108: '28rem',
+        128: '32rem',
+        160: '40rem',
+      },
+      height: {
         96: '24rem',
         100: '26rem',
         108: '28rem',

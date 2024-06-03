@@ -35,7 +35,6 @@ export default function SignUp() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     for (const key in user) {
-      console.log(user[key]);
       if (!user[key].trim()) {
         console.log(`${key} is empty!`);
         return;
@@ -46,8 +45,8 @@ export default function SignUp() {
       setError('');
       setLoading(true);
 
-      await signUp(user.email, user.password);
-      await addUser(user);
+      const newUid = await signUp(user.email, user.password);
+      await addUser(newUid, user);
 
       navigate('/');
     } catch (error) {

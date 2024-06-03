@@ -9,18 +9,30 @@ export const useDatabase = () => useContext(DatabaseContext);
 
 export function DatabaseProvider({ children }) {
   const { uid } = useAuth();
-  // const userRef = db.ref(`users/${uid}`);
   let db;
   try {
     db = getDatabase();
   } catch (error) {
     throw error;
   }
+  console.log('DatabaseProvider uid from authcontext: ', uid);
 
-  const addUser = async (user) => {
+  const addUser = async (newUid, user) => {
     try {
-      const userInfoRef = ref(db, `users/${uid}/userInfo`);
+      // const uid = await getUid();
+      console.log('What is the uid? addUser: uid is ', newUid);
+      const userInfoRef = ref(db, `users/${newUid}/userInfo`);
       await set(userInfoRef, user);
+    } catch (error) {
+      throw error;
+    }
+  };
+  const getUserInfo = async () => {
+    try {
+      // const uid = await getUid();
+      console.log('What is the uid? getUserInfo: uid is ', uid);
+      const snapshot = await get(ref(db, `users/${uid}/userInfo`));
+      return snapshot.val();
     } catch (error) {
       throw error;
     }
@@ -28,6 +40,7 @@ export function DatabaseProvider({ children }) {
 
   const getRosterData = async () => {
     try {
+      // const uid = await getUid();
       const snapshot = await get(ref(db, `users/${uid}/roster`));
       return snapshot.val();
     } catch (error) {
@@ -36,6 +49,7 @@ export function DatabaseProvider({ children }) {
   };
   const getScoutData = async () => {
     try {
+      // const uid = await getUid();
       const snapshot = await get(ref(db, `users/${uid}/scout`));
       return snapshot.val();
     } catch (error) {
@@ -51,6 +65,7 @@ export function DatabaseProvider({ children }) {
         }
       }
 
+      // const uid = await getUid();
       const userRosterRef = ref(db, `users/${uid}/roster/${key}`);
       await set(userRosterRef, data);
     } catch (error) {
@@ -68,15 +83,17 @@ export function DatabaseProvider({ children }) {
         }
       }
 
+      // const uid = await getUid();
       const userScoutRef = ref(db, `users/${uid}/scout/${key}`);
       await set(userScoutRef, data);
     } catch (error) {
       throw error;
     }
   };
-  // type = roster | scout
+  // type = 'roster' | 'scout'
   const deletePlayer = async (key, type) => {
     try {
+      // const uid = await getUid();
       const userRosterRef = ref(db, `users/${uid}/${type}/${key}`);
       await remove(userRosterRef);
     } catch (error) {
@@ -85,6 +102,7 @@ export function DatabaseProvider({ children }) {
   };
   const value = {
     addUser,
+    getUserInfo,
     getRosterData,
     getScoutData,
     addToRoster,

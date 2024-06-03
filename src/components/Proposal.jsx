@@ -10,7 +10,7 @@ export default function Proposal({ player }) {
   const [proposal, setProposal] = useState('');
   const { addToRoster, addToScout } = useDatabase();
   const [error, setError] = useState('');
-  const submit = async (e, action) => {
+  const submit = async (action) => {
     if (!isSignedIn) {
       navigate('/signin');
       return;
@@ -54,17 +54,13 @@ export default function Proposal({ player }) {
       <div className='w-full mt-1 flex gap-2'>
         <button
           className='flex-1 rounded-xl pt-2 pb-3 bg-blue border border-gold-transition'
-          onClick={(e) => {
-            submit(e, 'roster');
-          }}
+          onClick={() => submit('roster')}
         >
           Add to Roster
         </button>
         <button
           className='flex-1 rounded-xl pt-2 pb-3 bg-blue border border-gold-transition'
-          onClick={(e) => {
-            submit(e, 'scout');
-          }}
+          onClick={() => submit('scout')}
         >
           Scout Now
         </button>
