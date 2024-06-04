@@ -88,3 +88,10 @@ textarea:focus {
   outline: none;
   border: none;
 }
+
+select {
+  all: unset;
+}
+
+option {
+}

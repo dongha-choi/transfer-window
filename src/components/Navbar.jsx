@@ -21,24 +21,44 @@ export default function Navbar() {
       fetchData();
     }
   }, [isSignedIn, getUserInfo]);
+
   return (
-    <nav className='flex items-center gap-2 font-medium'>
-      <Link to='/players' className='px-2 py-1'>
+    <nav className='flex items-center gap-6 font-medium'>
+      {userInfo.position === 'agent' && (
+        <Link
+          to='/enroll'
+          className='px-2 py-1 border rounded-md border-skyBlue'
+        >
+          Enroll FA
+        </Link>
+      )}
+      <Link to='/players' className='py-1'>
         Players
       </Link>
-      <Link to='/roster' className='px-2 py-1'>
-        Roster
+      <Link to='/roster' className='py-1'>
+        {isSignedIn ? (
+          <span className='py-1 font-bold text-gold'>{userInfo.name}</span>
+        ) : (
+          <span className='py-1'>Roster</span>
+        )}
       </Link>
+
       {isSignedIn ? (
         <>
-          <span className='px-2 py-1 font-bold text-gold'>{userInfo.name}</span>
-          <Link to='/' className='px-2 py-1' onClick={exit}>
+          <Link
+            to='/'
+            className='py-1'
+            onClick={async () => {
+              await exit();
+              setUserInfo({});
+            }}
+          >
             Sign Out
           </Link>
         </>
       ) : (
         <>
-          <Link to='/signin' className='px-2 py-1'>
+          <Link to='/signin' className='py-1'>
             Sign In
           </Link>
           <Link

@@ -8,6 +8,7 @@ import PrivateRoute from '../components/PrivateRoute';
 import SignIn from '../pages/SignIn';
 import SignUp from '../pages/SignUp';
 import Scout from '../pages/Scout';
+import Enroll from '../pages/Enroll';
 
 const router = createBrowserRouter([
   {
@@ -28,6 +29,7 @@ const router = createBrowserRouter([
       { path: 'players/:playerId', element: <Scout /> },
       { path: 'signin', element: <SignIn /> },
       { path: 'signup', element: <SignUp /> },
+      { path: 'enroll', element: <Enroll /> },
     ],
   },
 ]);

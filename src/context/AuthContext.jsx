@@ -32,15 +32,6 @@ export function AuthProvider({ children }) {
     return unsubscribe;
   }, []);
 
-  // const getUid = async () => {
-  //   console.log('getUid is executed');
-  //   return Promise.resolve(uid);
-  // };
-  // const getUid = () => {
-  //   console.log('getUid is executed');
-  //   return uid;
-  // };
-
   const signUp = async (email, password) => {
     try {
       const userCredential = await createUserWithEmailAndPassword(

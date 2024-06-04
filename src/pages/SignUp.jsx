@@ -8,7 +8,7 @@ export default function SignUp() {
   const [user, updateUser] = useImmer({
     email: '',
     password: '',
-    name: '', // can't send name.
+    name: '',
     position: 'contractor',
   });
   const [confirmationPassword, setConfirmationPassword] = useState('');

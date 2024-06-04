@@ -19,10 +19,10 @@ export function DatabaseProvider({ children }) {
 
   const addUser = async (newUid, user) => {
     try {
-      // const uid = await getUid();
+      const { password, ...userInfoWithoutPassword } = user;
       console.log('What is the uid? addUser: uid is ', newUid);
       const userInfoRef = ref(db, `users/${newUid}/userInfo`);
-      await set(userInfoRef, user);
+      await set(userInfoRef, userInfoWithoutPassword);
     } catch (error) {
       throw error;
     }
@@ -100,6 +100,14 @@ export function DatabaseProvider({ children }) {
       throw error;
     }
   };
+  const enrollPlayer = async (player) => {
+    try {
+      const playerRef = ref(db, `players/${player.id}`);
+      await set(playerRef, player);
+    } catch (error) {
+      throw error;
+    }
+  };
   const value = {
     addUser,
     getUserInfo,
@@ -108,6 +116,7 @@ export function DatabaseProvider({ children }) {
     addToRoster,
     addToScout,
     deletePlayer,
+    enrollPlayer,
   };
   return (
     <DatabaseContext.Provider value={value}>
