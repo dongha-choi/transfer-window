@@ -1,6 +1,6 @@
 import React, { createContext, useContext } from 'react';
 // import { db } from '../config/firebase';
-import { getDatabase, ref, set, get, remove } from 'firebase/database';
+import { getDatabase, ref, set, get, remove, child } from 'firebase/database';
 import { useAuth } from './AuthContext';
 
 const DatabaseContext = createContext();
@@ -29,7 +29,6 @@ export function DatabaseProvider({ children }) {
   };
   const getUserInfo = async () => {
     try {
-      // const uid = await getUid();
       console.log('What is the uid? getUserInfo: uid is ', uid);
       const snapshot = await get(ref(db, `users/${uid}/userInfo`));
       return snapshot.val();
@@ -40,7 +39,6 @@ export function DatabaseProvider({ children }) {
 
   const getRosterData = async () => {
     try {
-      // const uid = await getUid();
       const snapshot = await get(ref(db, `users/${uid}/roster`));
       return snapshot.val();
     } catch (error) {
@@ -49,7 +47,6 @@ export function DatabaseProvider({ children }) {
   };
   const getScoutData = async () => {
     try {
-      // const uid = await getUid();
       const snapshot = await get(ref(db, `users/${uid}/scout`));
       return snapshot.val();
     } catch (error) {
@@ -65,7 +62,6 @@ export function DatabaseProvider({ children }) {
         }
       }
 
-      // const uid = await getUid();
       const userRosterRef = ref(db, `users/${uid}/roster/${key}`);
       await set(userRosterRef, data);
     } catch (error) {
@@ -83,7 +79,6 @@ export function DatabaseProvider({ children }) {
         }
       }
 
-      // const uid = await getUid();
       const userScoutRef = ref(db, `users/${uid}/scout/${key}`);
       await set(userScoutRef, data);
     } catch (error) {
@@ -93,9 +88,8 @@ export function DatabaseProvider({ children }) {
   // type = 'roster' | 'scout'
   const deletePlayer = async (key, type) => {
     try {
-      // const uid = await getUid();
-      const userRosterRef = ref(db, `users/${uid}/${type}/${key}`);
-      await remove(userRosterRef);
+      const userPlayerRef = ref(db, `users/${uid}/${type}/${key}`);
+      await remove(userPlayerRef);
     } catch (error) {
       throw error;
     }
@@ -104,6 +98,23 @@ export function DatabaseProvider({ children }) {
     try {
       const playerRef = ref(db, `players/${player.id}`);
       await set(playerRef, player);
+    } catch (error) {
+      throw error;
+    }
+  };
+  const fetchPlayers = async () => {
+    try {
+      const playersRef = ref(db, 'players');
+      const snapshot = await get(child(playersRef, '/'));
+      const players = [];
+
+      if (snapshot.exists()) {
+        snapshot.forEach((childSnapshot) => {
+          players.push({ id: childSnapshot.key, ...childSnapshot.val() });
+        });
+      }
+
+      return players;
     } catch (error) {
       throw error;
     }
@@ -117,6 +128,7 @@ export function DatabaseProvider({ children }) {
     addToScout,
     deletePlayer,
     enrollPlayer,
+    fetchPlayers,
   };
   return (
     <DatabaseContext.Provider value={value}>

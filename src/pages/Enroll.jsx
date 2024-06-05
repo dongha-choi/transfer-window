@@ -3,6 +3,7 @@ import { useImmer } from 'use-immer';
 import { v4 as uuidv4 } from 'uuid';
 import { useDatabase } from '../context/DatabaseContext';
 import { useNavigate } from 'react-router-dom';
+import { useStorage } from '../context/StorageContext';
 
 export default function Enroll() {
   const { enrollPlayer } = useDatabase();
@@ -12,13 +13,15 @@ export default function Enroll() {
     team: '',
     role: '',
     marketValue: '',
-    profile: '',
   });
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
-  const [previewUrl, setPreviewUrl] = useState('');
+
+  const [profile, setProfile] = useState({});
+  const [url, setUrl] = useState('');
 
   const navigate = useNavigate();
+  const { uploadProfile } = useStorage();
   const handleSubmit = async (e) => {
     e.preventDefault();
     for (const key in player) {
@@ -32,6 +35,7 @@ export default function Enroll() {
       setLoading(true);
 
       await enrollPlayer(player);
+      await uploadProfile(player.id, profile);
 
       alert(`${player.name} is successfully enrolled!`);
       navigate('/players');
@@ -43,14 +47,11 @@ export default function Enroll() {
     }
   };
   const handleFileChange = (e) => {
-    const selectedFile = e.target.files[0];
-    // updatePlayer((draft) => {
-    //   draft.profile = JSON.stringify(selectedFile);
-    // });
-    // setPreviewUrl(URL.createObjectURL(selectedFile));
-    updatePlayer((draft) => {
-      draft.profile = URL.createObjectURL(selectedFile);
-    });
+    const profile = e.target.files[0];
+    if (profile) {
+      setProfile(profile);
+      setUrl(URL.createObjectURL(profile));
+    }
   };
   return (
     <div className='w-full mt-8 flex flex-col items-center text-lg font-bold'>
@@ -99,16 +100,16 @@ export default function Enroll() {
                 <option value='' disabled selected>
                   Select a team
                 </option>
-                <option value='Dplus KIA'>Dplus KIA</option>
-                <option value='Gen.G'>Gen.G</option>
-                <option value='T1'>T1</option>
-                <option value='KT'>KT</option>
-                <option value='HLE'>HLE</option>
-                <option value='KDF'>KDF</option>
-                <option value='NS'>NS</option>
-                <option value='DRX'>DRX</option>
-                <option value='FOX'>FOX</option>
-                <option value='BRO'>BRO</option>
+                <option value='gen'>Gen.G</option>
+                <option value='dk'>Dplus KIA</option>
+                <option value='t1'>T1</option>
+                <option value='kt'>KT Rolster</option>
+                <option value='hle'>Hanwha Life</option>
+                <option value='kdf'>Kwandong Freecs</option>
+                <option value='ns'>Nongshim RedForce</option>
+                <option value='drx'>DRX</option>
+                <option value='fox'>FearX</option>
+                <option value='bro'>OK Brion</option>
               </select>
             </div>
           </div>
@@ -165,12 +166,8 @@ export default function Enroll() {
             <div className='flex items-center'>
               <input type='file' onChange={handleFileChange} required />
             </div>
-            {player.profile && (
-              <img
-                src={player.profile}
-                alt='Profile Preview'
-                className='w-auto h-28'
-              />
+            {url && (
+              <img src={url} alt='Profile Preview' className='w-auto h-28' />
             )}
           </div>
           <button
